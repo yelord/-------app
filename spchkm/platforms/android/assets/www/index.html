@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+<!--        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+-->		<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--        <link rel="stylesheet" href="css/themes/default/jquery.mobile-1.4.2.min.css">  -->
+		<link rel="stylesheet" href="css/themes/default/jquery.mobile.external-png-1.4.2.min.css">
+	    <link rel="shortcut icon" href="img/logo28.png"> 
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <title>手机盘点枪</title>
+    </head>
+    <body> 
+<!-- 主界面  Start of first page: #main -->
+<div data-role="page" id="main" >
+
+	<div data-role="header" data-position="fixed">
+		<h1>手持盘点</h1>
+	<!--	<a href="#main" data-icon="bars" data-iconpos="notext">主页</a>  -->
+	    <a href="#about" data-icon="bars" data-iconpos="notext" data-rel="dialog" data-transition="none">关于</a>
+        <a href="#setting-form" class="ui-btn-right" data-icon="gear" data-iconpos="notext"  data-transition="none">设置</a>
+	</div><!-- /header data-rel="dialog"-->
+
+	<div role="main" class="ui-content" >
+		<h2>使用智能机来盘点</h2> 
+
+		<p>1.支持蓝牙扫枪,也支持摄像头识别条码</p>
+
+		<p class="tip">2.本地现有:商品数据<span id="dat1">10</span>条,盘点数据<span name="dat2">10</span>条,收货数据<span name="dat3">10</span>条</p>
+		<p>3.在 <a href="#setting-form" class="ui-btn ui-shadow ui-corner-all ui-icon-gear ui-btn-icon-notext ui-btn-inline" data-transition="none">设置</a>里同步商品资料或上传盘点数据</p>
+		
+		<form>
+		<fieldset data-role="controlgroup" data-theme="b" data-type="horizontal">
+			<legend><h3>功能请选择:</h3></legend> 
+			<input type="radio" name="radio-choice-h-2" id="radio-choice-h-2a" value="盘点" checked="checked">
+			<label for="radio-choice-h-2a">&nbsp;盘点&nbsp;<span name="dat2" class="badge red">0</span></label>
+			<input type="radio" name="radio-choice-h-2" id="radio-choice-h-2b" value="收货">
+			<label for="radio-choice-h-2b">&nbsp;收货&nbsp;<span name="dat3" class="badge green">0</span></label>
+			<input type="radio" name="radio-choice-h-2" id="radio-choice-h-2c" value="验码">
+			<label for="radio-choice-h-2c">&nbsp;验码&nbsp;</label> 
+	   	</fieldset>
+		</form>
+
+		<p><strong><b>注意：</b>如果开始新的盘点或收货，请注意点此
+		<a href="#del" id="del" class="ui-btn ui-shadow ui-corner-all ui-icon-minus ui-btn-icon-notext ui-btn-inline" data-rel="dialog" data-transition="none">清除</a>
+		清除原来的数据</strong></p>
+		
+		<p><a href="#two" class="ui-btn ui-shadow ui-corner-all ui-icon-check ui-btn-icon-top" data-transition="none">开始</a></p>
+		
+	</div><!-- /content -->
+    
+	<div data-role="footer" data-theme="a" data-position="fixed">
+		<h4>欢迎使用
+		<a href="#about" class="ui-btn ui-shadow ui-corner-all ui-icon-mail ui-btn-icon-notext" data-rel="dialog" data-transition="none">关于</a>
+		智能机盘点程序</h4>
+	</div><!-- /footer -->
+</div><!-- /page main -->
+
+<!--盘点界面 Start of second page: #two -->
+<div data-role="page" id="two" data-theme="a" data-position="fixed">
+
+	<div data-role="header">
+		<h1>
+		<span name="fn">盘点&nbsp;</span>
+		<font color="red"><sup id="record">0</sup></font>
+		</h1>
+		<a data-rel="back" data-icon="back" data-iconpos="notext">返回</a>
+		<a id="lookfor" data-icon="camera" data-iconpos="notext" data-rel="dialog" data-transition="none">相机</a>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<h2></h2>
+		<p><a href="#quantity" id="link2" data-rel="dialog" data-transition="none" style="display:none">转..</a></p>
+				
+		<label for="find_sku">请扫码...</label>
+		
+   		<input name="find_sku" id="find_sku" value="" style="font-size: 18px; font-family: Verdana;">
+		
+		<div id="tips"><p>点右上角图标可以使用摄像头扫码。</p></div>	
+		<br>
+	<form><div id="inhand" class="ui-field-contain">
+	    <label for="flip-1">手输数量:</label>
+	    <select name="flip-1" id="flip-1" data-role="flipswitch">
+		<option value="off">关</option>
+		<option value="on">开</option>
+	    </select>
+	</div></form>
+	<div id="showdemo"></div>
+	
+	</div><!-- /content -->
+    <div data-role="footer" data-theme="a" data-position="fixed">
+		<a data-rel="back" data-icon="back" data-iconpos="notext">返回</a>
+	</div><!-- /footer -->
+</div><!-- /page two -->
+
+
+<!-- 数量录入界面  Start of quantity page: #quantity   -->
+<div data-role="page" id="quantity">
+
+	<div data-role="header" data-theme="b">
+		<h1>数量录入</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+	
+		<label for="number-2">数量</label>
+		<input type="number" name="number-2" pattern="[0-9]*" id="number-2" value="1" data-clear-btn="true" style="font-size: 18px;">
+   		
+		
+	<p align="center"><a href="#" id="confirm" class="ui-btn ui-shadow ui-corner-all ui-icon-plus ui-btn-icon-left ui-btn-inline">确定</a></p>
+	<p><a href="#two" id="ret2" style="display:none;" data-rel="back" class="ui-btn ui-shadow ui-corner-all ui-btn-b">返回</a></p>
+
+	<div id="skuinfo"><font color="red">
+		<p><span id="sku"></span> / <span id="barcode"></span> / ￥<span id="price"></span></p>
+		<p><span id="skuname"></span></p></font>
+	</div>
+
+	</div><!-- /content -->
+ 
+</div><!-- /page popup -->
+
+<!-- 系统设置，数据同步界面 set -->
+<div data-role="page" id="setting-form" data-position="fixed">
+    <div data-role="header" data-position="fixed">
+		<h1>设置</h1> <a data-rel="back" data-icon="back" data-iconpos="notext">返回</a>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+	
+		
+	<ul data-role="listview" data-inset="true">
+	<li data-role="list-divider">设置工作路径</li>
+	<li>
+	<label for="myfile">数据文件默认路径：</label>
+	<input type="text" name="myfile" id="myfile" value="spchkm/">
+	<p>请将商品资料goods.txt文件拷贝到手机存储卡上的工作路径中。</p>
+	<p>盘点及收货数据也将会导出到此路径下。</p>
+	
+	</li>
+    <li data-role="list-divider">数据导入</li>
+    <li><h2>商品档案格式 goods.txt</h2>
+    	<p><strong>商品编码，商品条码，商品名称，售价，库存数</strong></p>
+    	<p><code>例：006070, 6932028401023,丘比沙拉酱200g ,9.30 ,42.00</code></p>
+    	<p class="ui-li-aside">
+ 		<a href="#" id="refresh" class="ui-btn ui-shadow ui-corner-all ui-icon-recycle ui-btn-icon-notext">更新</a> 
+ 		</p>  
+		<div id='showdata'></div>
+    </li>
+    
+   <li data-role="list-divider">数据导出</li>
+    <li><h2>盘点/收货数据格式</h2>
+    	<p><strong>单号，商品条码，数量</strong></p>
+    	<p><code>  例：1001    ,6932028401023,42.00</code></p>
+        <p class="ui-li-aside">[pd.txt , sh.txt]</p>
+    </li>
+    <li><h2>盘点数据</h2>
+    	<h2>pd.txt</h2>
+    	<p>在本机生成pd.txt文本文件，,供mis系统调用</p>
+    	<p class="ui-li-aside">
+ 		<a href="#" id="dl-pd" class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-d ui-btn-icon-notext">导出</a> 
+ 		</p> 
+    </li>
+    <li><h2>收货数据</h2>
+    	<h2>sh.txt</h2>
+    	<p>在本机生成sh.txt文本文件,供mis系统调用</p>
+    	<p class="ui-li-aside">
+ 		<a href="#" id="dl-sh" class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-d ui-btn-icon-notext">导出</a> 
+ 		</p>
+    </li>
+    <li data-role="list-divider">与服务器同步</li>
+    <li><h2>远程数据</h2>
+    	<p>注意：需要服务器端的支持</p>
+    	<p>直接将盘点/收货数据发送到服务器以及从服务器接收商品资料。</p>
+    	<h2>请选择：</h2>
+    	<form>
+		<fieldset data-role="controlgroup" data-mini="true">
+    	<input type="checkbox" name="checkbox-h-6a" id="checkbox-h-6a" checked="checked">
+    	<label for="checkbox-h-6a">商品资料(下载goods.txt)</label>
+    	<input type="checkbox" name="checkbox-h-6b" id="checkbox-h-6b">
+    	<label for="checkbox-h-6b">盘点数据(上传pd.txt)</label>
+    	<input type="checkbox" name="checkbox-h-6c" id="checkbox-h-6c">
+    	<label for="checkbox-h-6c">收货数据(上传sh.txt)</label>
+		</fieldset>
+		</form>
+		<h2>服务器端接口：</h2>
+    	<input type="text" name="datafile" id="datafile" value="http://192.168.1.104:5000/">
+    	<p class="ui-li-aside">
+ 		<a href="#" id="refresh2" class="ui-btn ui-shadow ui-corner-all ui-icon-recycle ui-btn-icon-notext">更新</a> 
+ 		</p>
+    </li>   
+	</ul>
+
+	<div>
+	<a data-rel="back" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-back ui-btn-icon-left ui-btn-inline">返回</a>
+	</div>
+    </div><!-- /content  ui-state-disabled-->
+    <div data-role="footer" data-theme="a" data-position="fixed">
+		<font color=red><p id="errtips"></p></font>
+	</div><!-- /footer -->
+</div><!-- -->
+
+<!-- 文件目录浏览 Start of dirlist page: #dirlist -->
+
+<!-- 数据清除界面 Start of delete page: #del -->
+<div data-role="page" id="del">
+
+	<div data-role="header" data-theme="b">
+		<h1>删除 <span name="fn"></span>数据提示</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<h2>警告.. </h2>
+		<p> 确认将删除本机的<font color="red"><span name="fn">盘点</span></font>数据，是否继续？ </p>
+		<div>
+		<a id="ok" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-recycle ui-btn-icon-left ui-btn-inline">确定</a>
+        <a href="#main" id="cancel" data-rel="back" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-icon-back ui-btn-icon-left">取消</a>
+		</div>
+		
+	</div><!-- /content -->
+</div><!-- /page popup -->
+
+<!-- 关于界面 Start of about page: #about -->
+<div data-role="page" id="about">
+
+	<div data-role="header" data-theme="b">
+		<h1>关于</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<h2>关于<img src="img/logo28.png" align="top" alt="logo">盘点 </h2>
+		<p> 本程序通过智能手机、IPAD、笔记本电脑等（android、IOS、WP）设备连接条码扫枪来替代传统盘点枪来进行盘点，检查商品条码，收货等操作.</p>
+		<p> 智能手机、ipad等已经非常普及，随身携带，通过蓝牙协议与蓝牙扫枪连接，扫商品操作也很方便。</p>
+		<p> 希望能为您的日常工作提供帮助，有问题请发邮件: </p>
+		<p>yelord@qq.com </p>
+		
+		<p><a href="#main" data-rel="back" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-icon-back ui-btn-icon-left">返回</a></p>
+	</div><!-- /content -->
+
+</div><!-- /page popup -->
+
+        <!-- cordova plugin -->
+        <script type="text/javascript" src="cordova.js"></script>
+        <!--  my app's   -->
+        <script src="js/jquery.js"></script>
+        <script src="js/jquery.mobile-1.4.2.min.js"></script>
+		<script src="js/db.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/data.js"></script>
+        <!-- cordova   -->
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+    </body>
+</html>

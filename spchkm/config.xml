@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.yelord.spchkm" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>收货盘点</name>
+    <description>
+        一个简单的程序，利用手机等智能设备当盘点机用.
+    </description>
+    <author email="yelord@qq.com" href="http://cordova.io">
+        yelord
+    </author>
+    <preference name="SplashScreen" value="screen" />
+	<preference name="SplashScreenDelay" value="10000" />
+	<preference name="LoadingDialog" value="欢迎使用！正在努力加载中..."/>
+	<content src="index.html" />
+    <access origin="*" />
+</widget>
