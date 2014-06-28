@@ -28,3 +28,11 @@ app
     * 可直接拷贝到手机上运行安装，也可在运行服务端程序后，在手机浏览器上：
     * http://服务器ip:5000/ 去下载app。
     * 比如服务器ip是123.123.123.250，则：http://123.123.123.250:5000/
+
+注（cordova生成android app）：
+=============================
+> cordova build android --release
+
+> jarsigner -verbose -keystore spchkm.keystore -signedjar spchkm_signed.apk spchkm-release-unsigned.apk spchkm.keystore
+
+> zipalign -v 4 spchkm_signed.apk  spchkm.apk
